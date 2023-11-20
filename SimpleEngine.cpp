@@ -10,6 +10,8 @@
 class SpawnActor;
 class AActor;
 
+SimpleEngine* SimpleEngine::Instance = nullptr;
+
 SimpleEngine::SimpleEngine()
 {
 	Init();
@@ -58,6 +60,11 @@ void SimpleEngine::LoadLevel(std::string Filename)
 	//Load
 	//Disk -> Memory : Desirialize
 	//file로 바꿀것
+
+	//singletone의 경우 
+
+
+
 	std::string Map[10] =
 	{
 	"**********",
@@ -103,10 +110,11 @@ void SimpleEngine::LoadLevel(std::string Filename)
 			{
 
 			}
-				//GetWorld()->SpawnActor(new AFloor(X, Y));
+			GetWorld()->SpawnActor(new AFloor(X, Y));
 		}
 
 	}
+	GetWorld()->SortRenderOrder();
 };
 int SimpleEngine::Input()
 {

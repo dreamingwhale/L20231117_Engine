@@ -5,7 +5,7 @@ class AFloor :
 {
 public:
     AFloor();
-    AFloor(int NewX, int NewY, char NewShape=' ');
+    AFloor(int NewX, int NewY, char NewShape=' ', int newSortOrder = 1);
     virtual ~AFloor();
 };
 

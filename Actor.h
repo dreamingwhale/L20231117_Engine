@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 class AActor
 {
 public:
@@ -19,10 +20,24 @@ public:
 	inline void SetX(int NewX) { X = NewX; };
 	inline void SetY(int NewY) { Y = NewY; };
 
+	//순서 정렬을 위한 비교연산자 재정의
+	
+	virtual bool operator<(const AActor& RHS) const
+	{
+		return this->SortOrder < RHS.SortOrder;
+	}
+
+	virtual bool operator>(const AActor& RHS) const
+	{
+		return this->SortOrder > RHS.SortOrder;
+	}
+
+	int SortOrder;
+	bool bCollide;
+
 protected:
 	int X;
 	int Y;
 
 	char Shape;
 };
-
