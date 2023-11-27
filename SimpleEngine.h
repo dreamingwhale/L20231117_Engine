@@ -30,16 +30,16 @@ public:
 		return Instance;
 	}
 
+	static int KeyCode;
 
 protected:
 	UWorld* World;
 	bool IsRunning;
 	//전방선언 방법2 class UWorld* uworld;
 
-	int Input();
-	void Tick(int KeyCode);
+	void Input();
+	void Tick();
 	void Render();
 	static SimpleEngine* Instance;
-
 };
 #define GEngine SimpleEngine::GetInstance()

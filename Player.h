@@ -10,6 +10,6 @@ public:
     virtual ~APlayer();
 
     bool IsCollide(int NewX, int NewY);
-    virtual void Tick(int KeyCode) override;
+    virtual void Tick() override;
 };
 

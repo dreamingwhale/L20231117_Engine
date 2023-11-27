@@ -6,11 +6,13 @@
 #include "Goal.h"
 #include "Floor.h"
 #include "Monster.h"
+#include "GameMode.h"
 
 class SpawnActor;
 class AActor;
 
 SimpleEngine* SimpleEngine::Instance = nullptr;
+int SimpleEngine::KeyCode = 0;
 
 SimpleEngine::SimpleEngine()
 {
@@ -32,9 +34,10 @@ void SimpleEngine::Run()
 {
 	while (IsRunning)
 	{
-		int KeyCode = Input();
+
+		Input();
 		//拱府贸府
-		Tick(KeyCode);
+		Tick();
 		//拱府弊覆
 		system("cls");
 		Render();
@@ -115,16 +118,16 @@ void SimpleEngine::LoadLevel(std::string Filename)
 
 	}
 	GetWorld()->SortRenderOrder();
+	GetWorld()->SpawnActor(new AGameMode());
 };
-int SimpleEngine::Input()
+void SimpleEngine::Input()
 {
-	int KeyCode = _getch();
-	return KeyCode;
+	KeyCode = _getch();
 }
 
-void SimpleEngine::Tick(int KeyCode)
+void SimpleEngine::Tick()
 {
-	GetWorld()->Tick(KeyCode);
+	GetWorld()->Tick();
 }
 
 void SimpleEngine::Render()

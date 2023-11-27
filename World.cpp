@@ -18,12 +18,12 @@ void UWorld::SpawnActor(AActor* newActor)
 	}
 }
 
-void UWorld::Tick(int KeyCode)
+void UWorld::Tick()
 {
 	for (auto Actor : Actors)	//(const auto& Actor : Actors)값을 복사하지 말고 참조만 하라
 	{
-		
-		Actor->Tick(KeyCode);
+
+		Actor->Tick();
 	}
 }
 

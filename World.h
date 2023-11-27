@@ -8,7 +8,7 @@ public:
 	UWorld();
 	virtual ~UWorld();
 	void SpawnActor(AActor* newActor);
-	void Tick(int KeyCode);
+	void Tick();
 	void Render();
 
 	void SortRenderOrder();

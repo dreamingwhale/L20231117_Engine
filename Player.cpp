@@ -43,11 +43,11 @@ bool APlayer::IsCollide(int NewX, int NewY)
 	return false;
 }
 
-void APlayer::Tick(int KeyCode)
+void APlayer::Tick()
 {
-	//AActor::Tick(KeyCode);	//Super가 원래 c++에서는 존재하지 않음. 언리얼에는 존재
-	__super::Tick(KeyCode);		//visual studio 전용 문법
-
+	//AActor::Tick(KeyCode);				//Super가 원래 c++에서는 존재하지 않음. 언리얼에는 존재
+	__super::Tick();						//visual studio 전용 문법
+	int KeyCode = SimpleEngine::KeyCode;	//static으로 keycode를 던져넣고 받기
 	if (KeyCode == 'A' || KeyCode == 'a')
 	{
 		if (!IsCollide(X - 1, Y))
@@ -83,5 +83,9 @@ void APlayer::Tick(int KeyCode)
 			Y++;
 
 		}
+	}
+	if (KeyCode == 27)
+	{
+		GEngine->Stop();
 	}
 }
