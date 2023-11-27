@@ -7,6 +7,7 @@
 #include "Floor.h"
 #include "Monster.h"
 #include "GameMode.h"
+#include "GameState.h"
 
 class SpawnActor;
 class AActor;
@@ -16,11 +17,14 @@ int SimpleEngine::KeyCode = 0;
 
 SimpleEngine::SimpleEngine()
 {
+	GameMode = nullptr;
+	GameState = nullptr;
 	Init();
 }
 
 SimpleEngine::~SimpleEngine()
 {
+
 	Term();
 }
 
@@ -51,6 +55,8 @@ void SimpleEngine::Stop()
 
 void SimpleEngine::Term()
 {
+	GameMode = nullptr;
+	GameState = nullptr;
 	IsRunning = false;
 	delete World;
 }
@@ -70,21 +76,21 @@ void SimpleEngine::LoadLevel(std::string Filename)
 
 	std::string Map[10] =
 	{
-	"**********",
-	"*P       *",
-	"*        *",
-	"*        *",
-	"*    M   *",
-	"*        *",
-	"*        *",
-	"*        *",
-	"*       G*",
-	"**********"
+	"*****************",
+	"*P              *",
+	"*               *",
+	"*               *",
+	"*       M       *",
+	"*               *",
+	"*               *",
+	"*               *",
+	"*       G       *",
+	"*****************"
 	};
 
 	for (int Y = 0; Y < 10; ++Y)
 	{
-		for (int X = 0; X < 10; ++X)
+		for (int X = 0; X < 18; ++X)
 		{
 			if (Map[Y][X] == '*')
 			{
@@ -118,7 +124,10 @@ void SimpleEngine::LoadLevel(std::string Filename)
 
 	}
 	GetWorld()->SortRenderOrder();
-	GetWorld()->SpawnActor(new AGameMode());
+	GameMode = new AGameMode();
+	GameState = new AGameState();
+	GetWorld()->SpawnActor(GameMode);
+	GetWorld()->SpawnActor(GameState);
 };
 void SimpleEngine::Input()
 {

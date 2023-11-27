@@ -2,6 +2,9 @@
 #include <iostream>
 #include "SimpleEngine.h"
 #include "World.h"
+#include "Goal.h"
+#include "GameState.h"
+
 APlayer::APlayer()
 {
 	Shape = 'P';
@@ -88,4 +91,21 @@ void APlayer::Tick()
 	{
 		GEngine->Stop();
 	}
+
+	//골이 여러개일 경우 문제가 있음
+	AGoal* MyGoal = nullptr;
+	for (auto Actor : GEngine->GetWorld()->GetAllActors())
+	{
+		MyGoal = dynamic_cast<AGoal*>(Actor);
+		if (MyGoal &&
+			MyGoal->GetX() == X &&
+			MyGoal->GetY() == Y)
+		{
+			SimpleEngine::GetGameState()->IsNextLevel = true;
+			GEngine->Stop();
+			break;
+		}
+	}
+
+
 }
