@@ -5,7 +5,7 @@ class AMonster :
 {
 public:
 	AMonster();
-	AMonster(int NewX, int NewY, char NewShape = 'M', int NewSortOrder = 300);
+	AMonster(int NewX, int NewY, char NewShape = 'M', int NewSortOrder = 300, SDL_Color NewColor = SDL_Color{ 255,0,0,0 });
 	virtual ~AMonster();
 
 	bool IsCollide(int NewX, int NewY);
@@ -16,7 +16,7 @@ enum class EMonsterDirection
 {
 	Left = 0,
 	Right = 1,
-	Down = 2,
-	Up = 3
+	Down,
+	Up
 
 };

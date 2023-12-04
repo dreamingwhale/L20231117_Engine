@@ -1,3 +1,5 @@
+#include "SDL.h"
+
 #pragma once
 #include <vector>
 class AActor
@@ -34,6 +36,9 @@ public:
 
 	int SortOrder;
 	bool bCollide;
+	SDL_Color Color;
+
+	Uint16 Size;
 
 protected:
 	int X;

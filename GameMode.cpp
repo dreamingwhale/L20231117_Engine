@@ -23,11 +23,12 @@ void AGameMode::Tick()
 	if (SimpleEngine::GetGameState()->IsNextLevel)
 	{
 		std::cout << "Mission Completed" << std::endl;
-		GEngine->Stop();
+		GEngine->LoadLevel("Data/level02.smap");
 	}
 	if (SimpleEngine::GetGameState()->IsGameOver)
 	{
 		std::cout << "Mission Failed" << std::endl;
 		GEngine->Stop();
 	}
+	
 }

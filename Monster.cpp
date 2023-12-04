@@ -37,13 +37,13 @@ bool AMonster::IsCollide(int NewX, int NewY)
 	return false;
 }
 
-AMonster::AMonster(int NewX, int NewY, char NewShape, int NewSortOrder)
+AMonster::AMonster(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewColor )
 {
 	SetX(NewX);
 	SetY(NewY);
 	Shape = NewShape;
 	SortOrder = NewSortOrder;
-
+	Color = NewColor;
 }
 
 

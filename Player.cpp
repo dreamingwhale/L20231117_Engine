@@ -14,12 +14,13 @@ APlayer::APlayer()
 	bCollide = false;
 }
 
-APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder)
+APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewColor)
 {
 	Shape = NewShape;
 	SetX(NewX);
 	SetY(NewY);
 	SortOrder = NewSortOrder;
+	Color = NewColor;
 }
 
 APlayer::~APlayer()
@@ -50,8 +51,17 @@ void APlayer::Tick()
 {
 	//AActor::Tick(KeyCode);				//Super가 원래 c++에서는 존재하지 않음. 언리얼에는 존재
 	__super::Tick();						//visual studio 전용 문법
-	int KeyCode = SimpleEngine::KeyCode;	//static으로 keycode를 던져넣고 받기
-	if (KeyCode == 'A' || KeyCode == 'a')
+	int KeyCode = GEngine->MyEvent.key.keysym.sym;	
+	if (GEngine->MyEvent.type == SDL_KEYDOWN)
+	{
+		return;
+	}
+	if (SimpleEngine::GetGameState()->IsGameOver)
+	{
+		return;
+	}
+
+	if (KeyCode == SDLK_a)
 	{
 		if (!IsCollide(X - 1, Y))
 		{
@@ -60,7 +70,7 @@ void APlayer::Tick()
 		}
 		//GEngine->GetAllActors();
 	}
-	if (KeyCode == 'D' || KeyCode == 'd')
+	if (KeyCode == SDLK_d)
 	{
 		if (!IsCollide(X + 1, Y))
 		{
@@ -69,7 +79,7 @@ void APlayer::Tick()
 
 		}
 	}
-	if (KeyCode == 'W' || KeyCode == 'w')
+	if (KeyCode == SDLK_w)
 	{
 		if (!IsCollide(X, Y - 1))
 		{
@@ -78,21 +88,18 @@ void APlayer::Tick()
 
 		}
 	}
-	if (KeyCode == 'S' || KeyCode == 's')
+	if (KeyCode == SDLK_s)
 	{
 		if (!IsCollide(X, Y + 1))
 		{
-
 			Y++;
-
 		}
 	}
-	if (KeyCode == 27)
+	if (KeyCode == SDLK_ESCAPE)
 	{
 		GEngine->Stop();
 	}
 
-	//골이 여러개일 경우 문제가 있음
 	AGoal* MyGoal = nullptr;
 	for (auto Actor : GEngine->GetWorld()->GetAllActors())
 	{
@@ -106,6 +113,7 @@ void APlayer::Tick()
 			break;
 		}
 	}
+
 
 
 }
