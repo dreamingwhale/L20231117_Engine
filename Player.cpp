@@ -26,6 +26,8 @@ APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color 
 	SpriteSizeX = 5;
 	SpriteSizeY = 5;
 
+	ProcessTime = 500;
+	ElaspedTime = 0;
 }
 
 APlayer::~APlayer()
@@ -60,7 +62,6 @@ void APlayer::Tick()
 
 	if (GEngine->MyEvent.type == SDL_KEYDOWN)
 	{
-		
 		return;
 	}
 	if (SimpleEngine::GetGameState()->IsGameOver)
@@ -105,6 +106,31 @@ void APlayer::Tick()
 	if (KeyCode == SDLK_ESCAPE)
 	{
 		GEngine->Stop();
+	}
+
+	ElaspedTime += GEngine->GetWorldDeltaSeconds();
+	if (ElaspedTime <= ProcessTime)
+	{
+		return;
+		if (KeyCode == SDLK_UNKNOWN)
+		{
+			if (MySurfaceW < 6)
+			{
+				MySurfaceW += 1;
+				MySurfaceH += 1;
+
+			}
+			else
+			{
+				MySurfaceW = 1;
+				MySurfaceH = 1;
+
+			}
+		}
+	}
+	else
+	{
+		ElaspedTime = 0;
 	}
 
 

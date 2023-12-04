@@ -111,9 +111,6 @@ void SimpleEngine::LoadLevel(std::string Filename)
 		file.close();
 	}
 
-
-
-
 	GetWorld()->SortRenderOrder();
 	GameMode = new AGameMode();
 	GameState = new AGameState();
