@@ -17,6 +17,7 @@ AWall::AWall(int NewX, int NewY, char NewShape,int NewSortOrder, SDL_Color NewCo
 	SortOrder = NewSortOrder;
 	bCollide = true;
 	Color = NewColor;
+	LoadBMP("Data/Wall.bmp");
 }
 
 int AWall::GetX()

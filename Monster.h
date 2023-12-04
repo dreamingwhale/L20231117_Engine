@@ -10,6 +10,10 @@ public:
 
 	bool IsCollide(int NewX, int NewY);
 	virtual void Tick() override;
+	Uint32 ProcessTime;
+	Uint32 ElaspedTime;
+	SDL_Surface* Image;
+	SDL_Texture* Texture;
 };
 
 enum class EMonsterDirection

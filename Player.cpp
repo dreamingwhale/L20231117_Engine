@@ -21,6 +21,11 @@ APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color 
 	SetY(NewY);
 	SortOrder = NewSortOrder;
 	Color = NewColor;
+	LoadBMP("Data/Player.bmp", SDL_Color{ 255,0,255,0 });
+	bIsSprite = true;
+	SpriteSizeX = 5;
+	SpriteSizeY = 5;
+
 }
 
 APlayer::~APlayer()
@@ -51,9 +56,11 @@ void APlayer::Tick()
 {
 	//AActor::Tick(KeyCode);				//Super가 원래 c++에서는 존재하지 않음. 언리얼에는 존재
 	__super::Tick();						//visual studio 전용 문법
-	int KeyCode = GEngine->MyEvent.key.keysym.sym;	
+	int KeyCode = GEngine->MyEvent.key.keysym.sym;
+
 	if (GEngine->MyEvent.type == SDL_KEYDOWN)
 	{
+		
 		return;
 	}
 	if (SimpleEngine::GetGameState()->IsGameOver)
@@ -99,6 +106,7 @@ void APlayer::Tick()
 	{
 		GEngine->Stop();
 	}
+
 
 	AGoal* MyGoal = nullptr;
 	for (auto Actor : GEngine->GetWorld()->GetAllActors())

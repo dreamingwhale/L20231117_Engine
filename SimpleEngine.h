@@ -52,7 +52,7 @@ public:
 	SDL_Event MyEvent;
 	Uint64 DeltaSeconds;
 	Uint64 LastTime;
-
+	
 protected:
 	UWorld* World;
 	bool IsRunning;

@@ -1,4 +1,4 @@
-#include "Monster.h"
+﻿#include "Monster.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -17,7 +17,29 @@ AMonster::AMonster()
 	SortOrder = 300;
 	srand((unsigned int)time(NULL));
 	bCollide = false;
+
+	ProcessTime = 500;
+	ElaspedTime = 0;
 }
+
+AMonster::AMonster(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewColor )
+{
+	SetX(NewX);
+	SetY(NewY);
+	Shape = NewShape;
+	SortOrder = NewSortOrder;
+	Color = NewColor;
+	LoadBMP("Data/Slime.bmp");
+
+	ProcessTime = 500;
+	ElaspedTime = 0;
+}
+
+
+AMonster::~AMonster()
+{
+}
+
 
 bool AMonster::IsCollide(int NewX, int NewY)
 {
@@ -37,24 +59,18 @@ bool AMonster::IsCollide(int NewX, int NewY)
 	return false;
 }
 
-AMonster::AMonster(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewColor )
-{
-	SetX(NewX);
-	SetY(NewY);
-	Shape = NewShape;
-	SortOrder = NewSortOrder;
-	Color = NewColor;
-}
-
-
-AMonster::~AMonster()
-{
-}
-
 void AMonster::Tick()
 {
 	__super::Tick();
-	
+	ElaspedTime += GEngine->GetWorldDeltaSeconds();
+	if (ElaspedTime <= ProcessTime)
+	{
+		return;
+	}
+	else
+	{
+		ElaspedTime = 0;
+	}
 	
 	for (const auto& Actor : GEngine->GetWorld()->GetAllActors())
 	{

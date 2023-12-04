@@ -1,5 +1,5 @@
 #include "SDL.h"
-
+#include <iostream>
 #pragma once
 #include <vector>
 class AActor
@@ -34,11 +34,18 @@ public:
 		return this->SortOrder > RHS.SortOrder;
 	}
 
+	bool bIsSprite;
+	int SpriteSizeX;
+	int SpriteSizeY;
+
 	int SortOrder;
 	bool bCollide;
 	SDL_Color Color;
-
 	Uint16 Size;
+	SDL_Surface* MySurface;
+	SDL_Texture* MyTexture;
+	virtual void LoadBMP(std::string Filename, SDL_Color Colorkey = SDL_Color{255,255,255,0});
+
 
 protected:
 	int X;

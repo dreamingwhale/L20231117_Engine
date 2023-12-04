@@ -49,10 +49,12 @@ void SimpleEngine::Init()
 
 void SimpleEngine::Run()
 {
+
 	while (IsRunning)
 	{
+
 		DeltaSeconds = SDL_GetTicks64() - LastTime;
-		LastTime = SDL_GetTicks();
+		LastTime = SDL_GetTicks64();
 		Input();
 		switch (MyEvent.type)
 		{
@@ -68,6 +70,7 @@ void SimpleEngine::Run()
 			break;
 		}
 		Tick();
+
 		SDL_SetRenderDrawColor(MyRenderer, 0, 0, 0, 0);
 		SDL_RenderClear(GEngine->MyRenderer);
 
@@ -110,7 +113,7 @@ void SimpleEngine::LoadLevel(std::string Filename)
 
 
 
-	
+
 	GetWorld()->SortRenderOrder();
 	GameMode = new AGameMode();
 	GameState = new AGameState();
@@ -152,14 +155,11 @@ void SimpleEngine::LoadActor(int NewX, int NewY, char Actor)
 	}
 	else if (Actor == 'G')
 	{
-
 		//Goal
 		GetWorld()->SpawnActor(new AGoal(NewX, NewY));
 	}
 
-	else if (Actor == ' ')
-	{
-		GetWorld()->SpawnActor(new AFloor(NewX, NewY));
-	}
+	GetWorld()->SpawnActor(new AFloor(NewX, NewY));
+
 }
 

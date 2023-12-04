@@ -15,6 +15,7 @@ AGoal::AGoal(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewC
 	Shape = NewShape;
 	SortOrder = NewSortOrder;
 	Color = NewColor;
+	LoadBMP("Data/Coin.bmp");
 }
 
 AGoal::~AGoal()
