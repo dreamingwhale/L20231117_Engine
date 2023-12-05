@@ -12,6 +12,8 @@ APlayer::APlayer()
 	Y = 10;
 	SortOrder = 400;
 	bCollide = false;
+	SpriteIndex = 0;
+	SpriteDirection = 0;
 }
 
 APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color NewColor)
@@ -25,6 +27,8 @@ APlayer::APlayer(int NewX, int NewY, char NewShape, int NewSortOrder, SDL_Color 
 	bIsSprite = true;
 	SpriteSizeX = 5;
 	SpriteSizeY = 5;
+	SpriteIndex = 0;
+	SpriteDirection = 0;
 
 	ProcessTime = 500;
 	ElaspedTime = 0;
@@ -60,6 +64,14 @@ void APlayer::Tick()
 	__super::Tick();						//visual studio 전용 문법
 	int KeyCode = GEngine->MyEvent.key.keysym.sym;
 
+	ElaspedTime += GEngine->GetWorldDeltaSeconds();
+	if (ElaspedTime >= ProcessTime)
+	{
+		SpriteIndex++;
+		SpriteIndex = SpriteIndex % SpriteSizeX;
+		ElaspedTime = 0;
+	}
+
 	if (GEngine->MyEvent.type == SDL_KEYDOWN)
 	{
 		return;
@@ -74,6 +86,7 @@ void APlayer::Tick()
 		if (!IsCollide(X - 1, Y))
 		{
 			X--;
+			SpriteDirection = 0;
 
 		}
 		//GEngine->GetAllActors();
@@ -84,7 +97,7 @@ void APlayer::Tick()
 		{
 
 			X++;
-
+			SpriteDirection = 1;
 		}
 	}
 	if (KeyCode == SDLK_w)
@@ -93,7 +106,7 @@ void APlayer::Tick()
 		{
 
 			Y--;
-
+			SpriteDirection = 2;
 		}
 	}
 	if (KeyCode == SDLK_s)
@@ -101,38 +114,13 @@ void APlayer::Tick()
 		if (!IsCollide(X, Y + 1))
 		{
 			Y++;
+			SpriteDirection = 3;
 		}
 	}
 	if (KeyCode == SDLK_ESCAPE)
 	{
 		GEngine->Stop();
 	}
-
-	ElaspedTime += GEngine->GetWorldDeltaSeconds();
-	if (ElaspedTime <= ProcessTime)
-	{
-		return;
-		if (KeyCode == SDLK_UNKNOWN)
-		{
-			if (MySurfaceW < 6)
-			{
-				MySurfaceW += 1;
-				MySurfaceH += 1;
-
-			}
-			else
-			{
-				MySurfaceW = 1;
-				MySurfaceH = 1;
-
-			}
-		}
-	}
-	else
-	{
-		ElaspedTime = 0;
-	}
-
 
 	AGoal* MyGoal = nullptr;
 	for (auto Actor : GEngine->GetWorld()->GetAllActors())
@@ -149,5 +137,24 @@ void APlayer::Tick()
 	}
 
 
+
+}
+
+void APlayer::Render()
+{
+	__super::Render();
+
+	
+
+	SDL_RenderCopy(GEngine->MyRenderer
+		, MyTexture
+		, new SDL_Rect{
+			SpriteIndex * 256 / 5
+			, SpriteDirection * 256 / 5
+			, MySurface->w / SpriteSizeX
+			, MySurface->h / SpriteSizeY
+			}
+		, new SDL_Rect{ X * Size,Y * Size,Size,Size
+		});
 
 }

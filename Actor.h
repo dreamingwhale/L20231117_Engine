@@ -37,8 +37,6 @@ public:
 	bool bIsSprite;
 	int SpriteSizeX;
 	int SpriteSizeY;
-	int MySurfaceW;
-	int MySurfaceH;
 
 	int SortOrder;
 	bool bCollide;

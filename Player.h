@@ -13,5 +13,9 @@ public:
 	virtual void Tick() override;
 	Uint32 ProcessTime;
 	Uint32 ElaspedTime;
+	Uint8 SpriteIndex;
+	Uint8 SpriteDirection;
+
+	virtual void Render() override;
 };
 

@@ -14,8 +14,7 @@ AActor::AActor() :
 
 	SpriteSizeX = 1;
 	SpriteSizeY = 1;
-	MySurfaceW = 1;
-	MySurfaceH = 1;
+
 }
 
 AActor::AActor(int NewX, int NewY)
@@ -32,8 +31,7 @@ AActor::AActor(int NewX, int NewY)
 	bIsSprite = false;
 	SpriteSizeX = 1;
 	SpriteSizeY = 1;
-	MySurfaceW = 1;
-	MySurfaceH = 1;
+
 }
 
 AActor::~AActor()
@@ -74,11 +72,11 @@ void AActor::Render()
 	std::cout << Shape;
 	if (bIsSprite)
 	{
-		SDL_RenderCopy(GEngine->MyRenderer
+		/*SDL_RenderCopy(GEngine->MyRenderer
 			, MyTexture
-			, new SDL_Rect{ MySurfaceW*256/5, MySurfaceH*256/5,  MySurface->w / SpriteSizeX,  MySurface->h / SpriteSizeY }
+			//, new SDL_Rect{ MySurfaceW*256/5, MySurfaceH*256/5,  MySurface->w / SpriteSizeX,  MySurface->h / SpriteSizeY }
 			, new SDL_Rect{ X * Size,Y * Size , Size , Size
-			});
+			});*/
 
 	}
 	else
